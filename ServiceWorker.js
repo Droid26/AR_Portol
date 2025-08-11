@@ -1,23 +1,31 @@
-const cacheName = "SocialBuzz-WorldAR_ImageTracking-0.1";
+#if USE_DATA_CACHING
+const cacheName = {{{JSON.stringify(COMPANY_NAME + "-" + PRODUCT_NAME + "-" + PRODUCT_VERSION )}}};
 const contentToCache = [
-    "Build/AR_Portol.loader.js",
-    "Build/AR_Portol.framework.js",
-    "Build/AR_Portol.data",
-    "Build/AR_Portol.wasm",
+    "Build/{{{ LOADER_FILENAME }}}",
+    "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+    "Build/{{{ WORKER_FILENAME }}}",
+#endif
+    "Build/{{{ DATA_FILENAME }}}",
+    "Build/{{{ CODE_FILENAME }}}",
     "TemplateData/style.css"
 
 ];
+#endif
 
 self.addEventListener('install', function (e) {
     console.log('[Service Worker] Install');
     
+#if USE_DATA_CACHING
     e.waitUntil((async function () {
       const cache = await caches.open(cacheName);
       console.log('[Service Worker] Caching all: app shell and content');
       await cache.addAll(contentToCache);
     })());
+#endif
 });
 
+#if USE_DATA_CACHING
 self.addEventListener('fetch', function (e) {
     e.respondWith((async function () {
       let response = await caches.match(e.request);
@@ -31,3 +39,4 @@ self.addEventListener('fetch', function (e) {
       return response;
     })());
 });
+#endif
