@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-AR_Portal-0.1.0";
 const contentToCache = [
-    "Build/9ed1b391228c81902917cc556cdcead8.loader.js",
+    "Build/832fbbe5067ace7bf39b905416384f50.loader.js",
     "Build/14cc4c61699a865452bf4b1840a4cbd0.framework.js",
-    "Build/16c6ad59433fdc7957d0756983d46fb8.data",
-    "Build/f55f0dacc9af29fff3908705d0638eb5.wasm",
+    "Build/1714b2bdb4214ac9a90b5107ade896f1.data",
+    "Build/4ceb7de9634d7369c05eca5bf9acbd26.wasm",
     "TemplateData/style.css"
 
 ];
