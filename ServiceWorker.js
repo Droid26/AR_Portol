@@ -1,33 +1,6 @@
-const cacheName = "DefaultCompany-AR_Portal-0.1.0";
-const contentToCache = [
-    "Build/fb4a98718c2fcf68772f22f0b592853f.loader.js",
-    "Build/4def1960146cecfa49877c70911a127b.framework.js.br",
-    "Build/097ae86ff99a56764922ed1d94c84937.data.br",
-    "Build/0cf55d59632bb89c89c16c6dd9dee900.wasm.br",
-    "TemplateData/style.css"
-
-];
 
 self.addEventListener('install', function (e) {
     console.log('[Service Worker] Install');
     
-    e.waitUntil((async function () {
-      const cache = await caches.open(cacheName);
-      console.log('[Service Worker] Caching all: app shell and content');
-      await cache.addAll(contentToCache);
-    })());
 });
 
-self.addEventListener('fetch', function (e) {
-    e.respondWith((async function () {
-      let response = await caches.match(e.request);
-      console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-      if (response) { return response; }
-
-      response = await fetch(e.request);
-      const cache = await caches.open(cacheName);
-      console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      return response;
-    })());
-});
